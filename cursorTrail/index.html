@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0rem;
+        padding: 0rem;
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100vh;
+        background-color: #111;
+        overflow: hidden;
+      }
+      img {
+        position: absolute;
+        pointer-events: none;
+        width: 60px;
+        object-fit: cover;
+        object-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section
+      style="min-height: 100vh; width: 80%; margin: auto; background: #a87777"
+    ></section>
+  </body>
+  <script>
+    let images = [
+      "./emoji/Frame 1181.svg",
+      "./emoji/Frame 1182.svg",
+      "./emoji/Group 10.svg",
+      "./emoji/Group 50.svg",
+      "./emoji/Group 52.svg",
+      "./emoji/Group 54.svg",
+      "./emoji/Group 58.svg",
+      "./emoji/Group 59.svg",
+      "./emoji/Group 63.svg",
+      "./emoji/Group 64.svg",
+      "./emoji/Group 66.svg",
+      "./emoji/Group 72.svg",
+      "./emoji/Omm...Nice!.svg",
+      "./emoji/Group 61.svg",
+    ];
+
+    document.querySelector("section").addEventListener("mousemove", (e) => {
+      let body = document.querySelector("body");
+      let image = document.createElement("img");
+      let x = e.pageX;
+      let y = e.pageY;
+
+      // Choose a random image path from the images array
+      let imagePath = images[Math.floor(Math.random() * images.length)];
+
+      // Set the image source
+      image.src = imagePath;
+
+      // Set image position
+      image.style.position = "absolute";
+      image.style.left = x + "px";
+      image.style.top = y + "px";
+
+      // Add image to the document body
+      body.appendChild(image);
+
+      // Remove image after a certain time (e.g., 1 second)
+      document.querySelector("section").addEventListener("mouseleave", () => {
+        removeImagesTimeout = setTimeout(() => {
+          const images = document.querySelectorAll("img");
+          images.forEach((image) => {
+            image.style.transition = "opacity 1s ease";
+            image.style.opacity = "0";
+            setTimeout(() => {
+              image.remove();
+            }, 1000);
+          });
+        }, 2000);
+      });
+
+      document.querySelector("section").addEventListener("mouseenter", () => {
+        clearTimeout(removeImagesTimeout);
+      });
+    });
+
+    /* 
+     let dynamicImages = [];
+      let images = [
+          "./images/emoji/Frame 1181.svg",
+          "./images/emoji/Frame 1182.svg",
+          "./images/emoji/Group 10.svg",
+          "./images/emoji/Group 50.svg",
+          "./images/emoji/Group 52.svg",
+          "./images/emoji/Group 54.svg",
+          "./images/emoji/Group 58.svg",
+          "./images/emoji/Group 59.svg",
+          "./images/emoji/Group 63.svg",
+          "./images/emoji/Group 64.svg",
+          "./images/emoji/Group 66.svg",
+          "./images/emoji/Group 72.svg",
+          "./images/emoji/Omm...Nice!.svg",
+          "./images/emoji/Group 61.svg",
+      ];
+
+      document.querySelector(".aboutme-blog .image-container .image").style.overflow = "hidden"; // Ensure no overflow
+      document.querySelector(".aboutme-blog .image-container img").addEventListener("mousemove", (e) => {
+          let imageContainer = document.querySelector(".aboutme-blog .image-container");
+          let image = document.createElement("img");
+
+          // Choose a random image path from the images array
+          let imagePath = images[Math.floor(Math.random() * images.length)];
+
+          // Set the image source
+          image.src = imagePath;
+
+          // Get the relative position within the image container
+          let containerRect = imageContainer.getBoundingClientRect();
+
+          // Calculate position relative to the containing element
+          let x = e.clientX - containerRect.left;
+          let y = e.clientY - containerRect.top;
+
+          // Clamp coordinates to ensure they don't overflow
+          let maxX = containerRect.width - 60; // Adjust 60 based on your image width
+          let maxY = containerRect.height - 60; // Adjust 60 based on your image height
+          x = Math.max(0, Math.min(maxX, x));
+          y = Math.max(0, Math.min(maxY, y));
+
+          // Set image position relative to the container
+          image.style.position = "absolute";
+          image.style.left = `${x}px`;
+          image.style.top = `${y}px`;
+          image.style.zIndex = "100";
+          image.style.width = "60px";
+          image.style.height = "60px";
+          image.style.objectFit = "contain"
+
+          // Append the image to the container to ensure correct positioning
+          imageContainer.appendChild(image);
+
+          // Add to dynamicImages array
+          dynamicImages.push(image);
+
+          // Remove the image after a certain time
+          let removeImagesTimeout; // Initialize the timeout variable
+          image.addEventListener("mouseleave", () => {
+              removeImagesTimeout = setTimeout(() => {
+                  dynamicImages.forEach((dynamicImage) => {
+                      dynamicImage.style.transition = "opacity 1s ease";
+                      dynamicImage.style.opacity = "0";
+                      setTimeout(() => {
+                          dynamicImage.remove();
+                          dynamicImages = dynamicImages.filter((img) => img !== dynamicImage);
+                      }, 1000);
+                  });
+              }, 1000);
+          });
+
+          image.addEventListener("mouseenter", () => {
+              clearTimeout(removeImagesTimeout);
+          });
+      });
+
+
+
+ */
+  </script>
+</html>
